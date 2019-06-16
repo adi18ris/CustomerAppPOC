@@ -1,0 +1,20 @@
+{
+  "name": "customerapp",
+  "version": "1.0.0",
+  "description": "This application exposes CRUD ReSTApis to perform CRUD operations on google datastore and app is deployed on google app engine.",
+  "main": "App.js",
+  "scripts": {
+    "start": "node App.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aditya Risbud",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/datastore": "^4.1.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.5.15"
+  }
+}
