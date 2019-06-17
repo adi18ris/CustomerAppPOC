@@ -24,16 +24,16 @@ For getting the all the customer
 /getCustomers
 
 For retrieving  customer by id
-/GetCustomer/:id
+/GetCustomer?id=123456789
 
 For inserting a new customer
 /InsertCustomer
 
 For updating the customer
-/UpdateCustomer/:id
+/UpdateCustomer?id=12345678
 
 For deleting the customer
-/DeleteCustomer/:id
+/DeleteCustomer?id=12345678
 
 application can be accessed by using below Provisional url
 https://nodejspoc-243717.appspot.com/
