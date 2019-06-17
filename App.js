@@ -25,32 +25,33 @@ app.get('/getCustomers',(req,res)=>{
     var query=datastore.createQuery('Customer');
     datastore.runQuery(query,(err,data)=>{
     if(err)
-        res.send("Error is:"+err);
+        res.send({Message:"Error is:"+err});
 
 
     if(Object.keys(data).length==0)//If data is empty in datastore
-        res.send('No data is available');
+        res.send({Message:'No data is available'});
     else
         res.send(data);//all data will be displayed
 })
 });
 //To fetch data from datastore using a ID
-app.get('/GetCustomer/:id',(req,res)=>{
-    //var id=parseInt(req.params.id);
-    var key=datastore.key(['Customer',parseInt(req.params.id)]);
+app.get('/GetCustomer',(req,res)=>{
+ 
+    var key=datastore.key(['Customer',parseInt(req.query.id)])
     datastore.get(key,(err,data)=>
     {
         if(err)
-        res.send("Error is:"+err);
+        res.send({Error: 'Error is:'+err});
 
 
     if(Object.keys(data).length==0)//If data is empty in datastore
-        res.send('No data is available');
+        res.send({Message:'No data is available'});
     else
         res.send(data);//all data will be displayed
     });
        
 })
+//To insert the new customer data in the datastore.
 app.post('/InsertCustomer',(req,res)=>{
     var keykind=datastore.key('Customer');
     console.log(req.body);
@@ -68,11 +69,12 @@ app.post('/InsertCustomer',(req,res)=>{
     console.log(entity);
     datastore.save(entity,()=>
     {
-        res.status(200).send('Data successfully added');
+        res.status(200).send({Message:'Data successfully added'});
     })
 })
-app.put('/UpdateCustomer/:id',(req,res)=>{
-    var key=datastore.key(['Customer',parseInt(req.params.id)]);
+//Update the existing customer data in the datastore.
+app.put('/UpdateCustomer',(req,res)=>{
+    var key=datastore.key(['Customer',parseInt(req.query.id)]);
    var entity={
         key:key,
         data:{
@@ -86,22 +88,18 @@ app.put('/UpdateCustomer/:id',(req,res)=>{
     console.log(entity);
     datastore.update(entity,()=>
     {
-        res.status(200).send('Data successfully Updated');
+        res.status(200).send({Message:'Data successfully Updated'});
     })
 })
-
-app.delete('/DeleteCustomer/:id',(req,res)=>{
-    console.log(req.params);
-    //var id=JSON.parse(req.param.id);
-    console.log(req.params.id);
-    console.log(parseInt(req.params.id));
-    var key=datastore.key(['Customer',parseInt(req.params.id)]);
+//To delete the existing customer data from datastore
+app.delete('/DeleteCustomer',(req,res)=>{
+     var key=datastore.key(['Customer',parseInt(req.query.id)]);
     datastore.delete(key,(err)=>
     {
         if(err)
-        res.send("Error is:"+err);
+        res.send({Message:"Error is:"+err});
         else
-        res.status(200).send('Data successfully deleted');
+        res.status(200).send({Message:'Data successfully deleted'});
     });
     
 })
@@ -109,5 +107,3 @@ app.delete('/DeleteCustomer/:id',(req,res)=>{
 var server=app.listen(process.env.PORT ||'3035', () => {
     console.log('Express server started at port :  http://localhost:%s',server.address().port);
 });
-
-//app.use('/employee', employeeController);
